@@ -1,0 +1,89 @@
+<%- include('layout/header') %>
+
+
+
+ <div class="container">
+    <h1 class="mb-4">Edit: <%= item.title %></h1>
+    <form
+      action="/news/admin/edit/<%= item._id %>"
+      method="post"
+      enctype="multipart/form-data"
+    >
+      <div class="mb-3">
+        <label class="form-label">Title</label>
+        <input
+          type="text"
+          name="title"
+          class="form-control"
+          value="<%= item.title %>"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Excerpt</label>
+        <textarea
+          name="excerpt"
+          class="form-control"
+          rows="2"
+        ><%= item.excerpt %></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Current Image</label><br/>
+        <% if (item.imageUrl) { %>
+          <img
+            src="<%= item.imageUrl %>"
+            alt="Current image"
+            style="max-width:200px; border:1px solid #ddd; padding:4px; border-radius:4px;"
+          />
+        <% } else { %>
+          <p class="text-muted">No image uploaded.</p>
+        <% } %>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Upload New Image</label>
+        <input
+          type="file"
+          name="image"
+          accept="image/*"
+          class="form-control"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Body</label>
+        <textarea
+          name="body"
+          class="form-control"
+          rows="6"
+        ><%= item.body %></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Date</label>
+        <input
+          type="date"
+          name="date"
+          class="form-control"
+          value="<%= item.date.toISOString().substr(0,10) %>"
+        />
+      </div>
+
+      <button type="submit" class="btn btn-primary">
+        <i class="fas fa-save me-1"></i>Save Changes
+      </button>
+      <a href="/news/admin" class="btn btn-secondary ms-2">
+        Cancel
+      </a>
+    </form>
+  </div>
+
+
+
+
+
+
+
+<%- include('layout/footer') %>

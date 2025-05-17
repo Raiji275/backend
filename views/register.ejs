@@ -1,0 +1,87 @@
+<%- include('layout/header') %>
+
+<div class="container">
+    <div class="row">
+        <div class=".col-lg-6 mx-auto mt-4">
+            <div class="card shadow">
+                <div class="card-header bg-primary">
+                    <h3 class="text-light">хэрэглэгч нэмэх</h3>
+                </div>
+                <div class="card-body p-4">
+                    <form action="/api/v1/auth/register" method="post" id="regform">
+                        <div class="mb-3">
+                            <label for="username">Username</label>
+                            <input type="text" name="username" class="form-control form-control-lg" placeholder="Нэрээ оруулна уу">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" class="form-control form-control-lg" placeholder="Нууц үгээ оруулна уу">
+                        </div>
+                        <div class="mb-3">
+                            <label for="role">Role</label>
+                            <select name="role" class="form-select form-select-lg">
+                                <option value="admin">admin</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">нэмэх</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // form.js
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('regform');
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault(); // ← stop the browser navigating away
+
+    // gather all the field values
+    const data = {};
+    new FormData(form).forEach((value, key) => {
+      data[key] = value;
+    });
+
+    try {
+      const resp = await fetch('http://localhost:8000/api/v1/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      const body = await resp.json();
+
+     if (resp.ok) {
+  Swal.fire({
+    icon: 'success',
+    title: 'Good job!',
+    text: body.message || 'Амжилттай хэрэгдэгч нэмлээ!',
+    confirmButtonText: 'Хаах',
+    // optional styling overrides:
+    customClass: {
+      popup: 'my-popup',
+      title: 'my-title',
+      content: 'my-content',
+      confirmButton: 'my-confirm-btn'
+    }
+  });
+  form.reset();
+} else {
+  Swal.fire({
+    icon: 'error',
+    title: 'Oops...',
+    text: body.error || body.message,
+  });
+}
+    } catch (err) {
+      console.error(err);
+      alert('Network error — please try again.');
+    }
+  });
+});
+
+</script>
+
+<%- include('layout/footer') %>
