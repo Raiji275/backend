@@ -1,0 +1,35 @@
+<%- include('layout/header') %>
+
+ <div class="container">
+    <h1 class="mb-4">All News Items</h1>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% all.forEach(item => { %>
+          <tr>
+            <td><%= item.title %></td>
+            <td><%= item.date.toLocaleDateString() %></td>
+            <td>
+              <a href="/news/admin/edit/<%= item._id %>" class="btn btn-sm btn-outline-primary">
+                <i class="fas fa-edit"></i>
+              </a>
+              <a href="/news/admin/delete/<%= item._id %>" class="btn btn-sm btn-outline-danger">
+                <i class="fas fa-trash"></i>
+              </a>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+
+
+
+<%- include('layout/footer') %>

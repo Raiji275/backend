@@ -1,0 +1,39 @@
+<%- include('layout/header-forindex') %>
+
+<div class="container">
+  <% news.forEach(function(n) { %>
+            </div> <!-- end pageintro -->              
+    
+                <div class="row width-narrow content-block content-block--media-right" style="margin-top: 3rem;">
+                    <div class="column content-block__text">
+                        <h3><%= n.title %></h3>
+                        <p>
+                            <%= n.body %>
+                        </p>
+                    </div>
+                    <div class="column content-block__media">
+                        <figure>
+                            <img src="<%= n.imageUrl %>" style="width: 90%;" 
+                                  alt="">
+                        </figure>
+                    </div>
+                </div> <!-- end content-block-->
+                  <% }); %>
+</div>
+<!----   
+   <% news.forEach(function(n) { %>
+    <div class="news-item" style="width: 100%; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+      <div class="news-text" style="width: 80%; padding: 20px; text-align: left;">
+        <h2><%= n.title %></h2>
+        <% if (n.imageUrl) { %>
+          <img src="<%= n.imageUrl %>" style="max-width: 200px; max-height: 200px; margin: 20px;">
+        <% } %>
+        <%= n.body %>
+        <p><%= n.excerpt %></p>
+        <p>Date: <%= n.date %></p>
+      </div>
+    </div>
+  <% }); %>
+</div>
+-->
+<%- include('layout/footer-forindex') %>
